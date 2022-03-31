@@ -1,3 +1,15 @@
+
+
+
+<?php
+$stringJson = file_get_contents(__DIR__ . "/../data-json/cadastroEspecialidades.json");
+$arrayEspecialidades = json_decode($stringJson,true);
+
+$stringDoctors = file_get_contents(__DIR__ . "/../data-json/cadastroMedicos.json");
+$arrayDoctors = json_decode($stringDoctors, true);
+//var_dump($arrayDoctors);
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid bg-success p-2 text-dark bg-opacity-10">
         <a class="navbar-brand" href="index.php">Cadatro Usuários</a>
@@ -46,7 +58,35 @@
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                         -->
                     </ul>
+
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Especialidades
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <?php
+                          foreach ($arrayEspecialidades as $especialidade){
+                              echo "<li><a class=\"dropdown-item\" href=\"list-doctors.php?esp={$especialidade["nome"]}\">{$especialidade["nome"]}</a></li>";
+                          }
+                        ?>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Médicos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <?php
+                        foreach ($arrayDoctors as $doctor){
+                            echo "<li><a class=\"dropdown-item\" href=\"doctor.php?nome={$doctor["name"]}\">{$doctor["name"]}</a></li>";
+                        }
+                        ?>
+                    </ul>
+                </li>
+
             </ul>
             <form class="d-flex" method="post" action="search-user.php">
                 <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" name="search">
